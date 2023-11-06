@@ -2,17 +2,22 @@ using UnityEngine;
 
 public class Hooking : MonoBehaviour
 {
-    public Grapple player;
+    private Grapple player;
+    private int index;
     public Rigidbody rigid;
+
+    public void Setup(Grapple G, int N)
+    {
+        player = G;
+        index = N;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         //Can only grab onto objects tagged so
         if (other.CompareTag("Grapple")) {
             rigid.velocity = Vector3.zero;
-            player.GrappleHit();
-        } else if (other.CompareTag("Player")) {
-            //Go through player
-            return;
-        } else { player.ClearHook(); }
+            player.GrappleHit(index);
+        } else { player.ClearHook(index); }
     }
 }
