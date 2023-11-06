@@ -3,12 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Anchor
+  - Grapple
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ignore Player
   - Water
   - UI
   - 
