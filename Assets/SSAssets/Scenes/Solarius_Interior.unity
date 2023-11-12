@@ -56697,6 +56697,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7600384094437697784, guid: 686feaf6b3f755e47be4f588fdf5dcb1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fbe38a253838d0f48860370605fd9a93, type: 2}
     - target: {fileID: 7892802378307193854, guid: 686feaf6b3f755e47be4f588fdf5dcb1, type: 3}
       propertyPath: m_Name
       value: Atrium_MainCorridor_Overhang
@@ -56873,6 +56877,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1182512287}
     m_Modifications:
+    - target: {fileID: 3071527691654833336, guid: 4f03e87636a45ed439bb7007e971296a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad2a2724fcbd06443a2deb76bf36e769, type: 2}
     - target: {fileID: 3576067394741929325, guid: 4f03e87636a45ed439bb7007e971296a, type: 3}
       propertyPath: m_Layer
       value: 3
