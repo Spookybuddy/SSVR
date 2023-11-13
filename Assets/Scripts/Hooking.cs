@@ -18,6 +18,12 @@ public class Hooking : MonoBehaviour
         if (other.CompareTag("Grapple")) {
             rigid.velocity = Vector3.zero;
             player.GrappleHit(index);
-        } else { player.ClearHook(index); }
+        }
+        else if (other.CompareTag("Grabbable")) {
+            rigid.velocity = Vector3.zero;
+            player.GrapplePull(index, other.gameObject);
+        } else {
+            player.ClearHook(index);
+        }
     }
 }

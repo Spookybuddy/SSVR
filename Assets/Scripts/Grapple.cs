@@ -6,12 +6,9 @@ using UnityEngine.InputSystem;
 public class Grapple : MonoBehaviour
 {
     //Hand tracking
-    public GameObject RH;
-    private Vector3 RHpos;
-    private Quaternion RHrot;
-    public GameObject LH;
-    private Vector3 LHpos;
-    private Quaternion LHrot;
+    public Transform[] Hands;
+    private Vector3[] HandPos;
+    private Quaternion[] HandRot;
 
     //Prefabs
     public InputActionReference gripActionR;
@@ -29,11 +26,14 @@ public class Grapple : MonoBehaviour
     public float severanceRange;
 
     //States
-    private bool[] hands;
+    private bool[] grips;
     private bool[] hooked;
     private bool[] held;
+    private bool[] pull;
 
     //Privates
+    private Vector3 respawn;
+    private GameObject[] grabbed;
     private Vector3[] dist;
     private GameObject[] current;
     private Vector3 lastHit;
@@ -41,15 +41,22 @@ public class Grapple : MonoBehaviour
 
     void Awake()
     {
+        HandPos = new Vector3[2];
+        HandRot = new Quaternion[2];
+
         held = new bool[2];
-        hands = new bool[2];
+        pull = new bool[2];
+        grips = new bool[2];
         hooked = new bool[2];
         dist = new Vector3[2];
         current = new GameObject[2];
+        grabbed = new GameObject[2];
 
         dist = zeroed;
         triggerSensitivity = Mathf.Clamp01(triggerSensitivity);
-        tugSpd = pullSpd / 5;
+        tugSpd = pullSpd / 6;
+
+        respawn = transform.position;
     }
 
     private void Update()
@@ -59,29 +66,43 @@ public class Grapple : MonoBehaviour
         Fire(gripActionL.action, 1);
 
         //Track hand position
-        RHpos = RH.transform.position;
-        RHrot = RH.transform.rotation;
-        LHpos = LH.transform.position;
-        LHrot = LH.transform.rotation;
+        for (int i = 0; i < 2; i++) {
+            HandPos[i] = Hands[i].position;
+            HandRot[i] = Hands[i].rotation;
+        }
 
         //Check both hands for grappling hooks
         for (int i = 0; i < 2; i++) {
-            //Velocity retension, button released, and grapple length limit
             if (current[i] != null) {
-                if (hooked[i]) dist[i] = (current[i].transform.position - player.transform.position).normalized / 2;
+                //Distance between player and hook
+                if (hooked[i]) dist[i] = (current[i].transform.position - player.transform.position).normalized * 0.7f;
 
-                if (!hands[i]) ClearHook(i);
+                //Objects pulled towards player
+                if (pull[i]) {
+                    current[i].transform.position = Vector3.MoveTowards(current[i].transform.position, HandPos[i], Time.deltaTime * fireSpd);
+                    grabbed[i].transform.position = current[i].transform.position;
+                    grabbed[i].transform.rotation = HandRot[i];
+                }
 
+                //Delete when let go and pulled objects rigid body retains velocity
+                if (!grips[i]) {
+                    if (pull[i]) grabbed[i].GetComponent<Rigidbody>().velocity = (grabbed[i].transform.position - HandPos[i]);
+                    ClearHook(i);
+                }
+
+                //Rope max length
                 if (Vector2.Distance(current[i].transform.position, player.transform.position) > grappleLength) ClearHook(i);
             } else {
                 //Velocity retained after hooked & released. Add in raycast collision detection. Maybe even convert the grapple into raycast
                 dist[i] = Vector3.MoveTowards(dist[i], Vector3.zero, tugSpd * Time.deltaTime);
+                if (Physics.Raycast(player.transform.position, dist[i], 2)) dist[i] = Vector3.zero;
                 player.transform.position += dist[i];
+                grabbed[i] = null;
             }
 
             //Rope is a line between the projectile and the hand position
-            if (hands[i]) {
-                rope[i].SetPosition(0, i == 0 ? RHpos : LHpos);
+            if (grips[i]) {
+                rope[i].SetPosition(0, HandPos[i]);
                 rope[i].SetPosition(1, current[i].transform.position);
             }
         }
@@ -91,12 +112,15 @@ public class Grapple : MonoBehaviour
             player.transform.position = Vector3.MoveTowards(player.transform.position, lastHit, pullSpd * Time.deltaTime);
             if (Vector3.Distance(player.transform.position, lastHit) < severanceRange) ClearHook(hooked[0] ? 0 : 1);
         }
+
+        //Player falls out of bounds
+        if (player.transform.position.y < -20) player.transform.position = respawn;
     }
 
     //Spawn projectile hook with velocity
-    private void GrapplingHook(int index, Vector3 pos, Quaternion rot)
+    private void GrapplingHook(int index)
     {
-        current[index] = Instantiate(projectile, pos, rot) as GameObject;
+        current[index] = Instantiate(projectile, HandPos[index], HandRot[index]);
         current[index].GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * fireSpd, ForceMode.Impulse);
         current[index].GetComponent<Hooking>().Setup(this, index);
     }
@@ -104,10 +128,15 @@ public class Grapple : MonoBehaviour
     //When a hook hits a grapplable object, set it as the target position and reset the other hook
     public void GrappleHit(int index)
     {
-        hooked[0] = false;
-        hooked[1] = false;
-        hooked[index] = true;
+        for (int i = 0; i < 2; i++) hooked[i] = (i == index);
         lastHit = current[index].transform.position;
+    }
+
+    //Hook hits an object that is moveable
+    public void GrapplePull(int index, GameObject grab)
+    {
+        for (int i = 0; i < 2; i++) pull[i] = (i == index);
+        grabbed[index] = grab;
     }
 
     //Delete projectile and reset line
@@ -115,22 +144,22 @@ public class Grapple : MonoBehaviour
     {
         Destroy(current[index]);
         rope[index].SetPositions(zeroed);
-        hands[index] = false;
+        grips[index] = false;
         hooked[index] = false;
+        pull[index] = false;
     }
 
     //Inputs for both hands
     public void Fire(InputAction act, int hand)
     {
         float value = act.ReadValue<float>();
-        if (value > triggerSensitivity && !hands[hand] && !held[hand]) {
-            hands[hand] = true;
+        if (value > triggerSensitivity && !grips[hand] && !held[hand]) {
+            grips[hand] = true;
             held[hand] = true;
-            if (hand == 0) GrapplingHook(0, RHpos, RHrot);
-            else GrapplingHook(1, LHpos, LHrot);
+            GrapplingHook(hand);
         }
         if (value <= triggerSensitivity) {
-            hands[hand] = false;
+            grips[hand] = false;
             held[hand] = false;
         }
     }
