@@ -25,5 +25,6 @@ public class Object : MonoBehaviour
         rigid.angularVelocity = Vector3.zero;
         transform.position = spawn;
         transform.rotation = rotation;
+        GetComponent<BoxCollider>().enabled = true;
     }
 }

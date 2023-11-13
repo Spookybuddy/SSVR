@@ -14,6 +14,7 @@ public class Grapple : MonoBehaviour
     public InputActionReference gripActionR;
     public InputActionReference gripActionL;
     public LineRenderer[] rope;
+    public GameObject[] reticle;
     public GameObject projectile;
     public GameObject player;
 
@@ -37,7 +38,7 @@ public class Grapple : MonoBehaviour
     private Vector3[] dist;
     private GameObject[] current;
     private Vector3 lastHit;
-    private readonly Vector3[] zeroed = new Vector3[] {Vector3.zero, Vector3.zero};
+    private readonly Vector3[] zeroed = new Vector3[] {Vector3.down, Vector3.down};
 
     void Awake()
     {
@@ -52,7 +53,7 @@ public class Grapple : MonoBehaviour
         current = new GameObject[2];
         grabbed = new GameObject[2];
 
-        dist = zeroed;
+        dist = new Vector3[2];
         triggerSensitivity = Mathf.Clamp01(triggerSensitivity);
         tugSpd = pullSpd / 6;
 
@@ -71,6 +72,15 @@ public class Grapple : MonoBehaviour
             HandRot[i] = Hands[i].rotation;
         }
 
+        //Reticle for player aim
+        for (int i = 0; i < 2; i++) {
+            if (pull[i]) reticle[i].transform.position = Vector3.down;
+            if (!grips[i]) {
+                if (Physics.Raycast(HandPos[i], Hands[i].forward, out RaycastHit hit, grappleLength, 3, QueryTriggerInteraction.Ignore)) reticle[i].transform.position = hit.point;
+                else reticle[i].transform.position = Vector3.down;
+            }
+        }
+
         //Check both hands for grappling hooks
         for (int i = 0; i < 2; i++) {
             if (current[i] != null) {
@@ -82,11 +92,15 @@ public class Grapple : MonoBehaviour
                     current[i].transform.position = Vector3.MoveTowards(current[i].transform.position, HandPos[i], Time.deltaTime * fireSpd);
                     grabbed[i].transform.position = current[i].transform.position;
                     grabbed[i].transform.rotation = HandRot[i];
+                    grabbed[i].GetComponent<BoxCollider>().enabled = false;
                 }
 
                 //Delete when let go and pulled objects rigid body retains velocity
                 if (!grips[i]) {
-                    if (pull[i]) grabbed[i].GetComponent<Rigidbody>().velocity = (grabbed[i].transform.position - HandPos[i]);
+                    if (pull[i]) {
+                        grabbed[i].GetComponent<BoxCollider>().enabled = true;
+                        grabbed[i].GetComponent<Rigidbody>().velocity = (grabbed[i].transform.position - HandPos[i]);
+                    }
                     ClearHook(i);
                 }
 
@@ -94,8 +108,11 @@ public class Grapple : MonoBehaviour
                 if (Vector2.Distance(current[i].transform.position, player.transform.position) > grappleLength) ClearHook(i);
             } else {
                 //Velocity retained after hooked & released. Add in raycast collision detection. Maybe even convert the grapple into raycast
+                if (Physics.Raycast(player.transform.position, dist[i], out RaycastHit hit, 2, 3, QueryTriggerInteraction.Ignore)) {
+                    dist[i] = Vector3.zero;
+                    Debug.Log("Collide");
+                }
                 dist[i] = Vector3.MoveTowards(dist[i], Vector3.zero, tugSpd * Time.deltaTime);
-                if (Physics.Raycast(player.transform.position, dist[i], 2)) dist[i] = Vector3.zero;
                 player.transform.position += dist[i];
                 grabbed[i] = null;
             }
