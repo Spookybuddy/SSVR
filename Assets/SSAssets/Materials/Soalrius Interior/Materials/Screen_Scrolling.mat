@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Screen_Scrolling
-  m_Shader: {fileID: -6465566751694194690, guid: c40411dad9c3f624cbdaab4995e25fb0, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 16989f01665f3c248aaa58bcd19fd600, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
