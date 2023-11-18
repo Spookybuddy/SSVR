@@ -22,6 +22,8 @@ public class Hooking : MonoBehaviour
         else if (other.CompareTag("Grabbable")) {
             rigid.velocity = Vector3.zero;
             player.GrapplePull(index, other.gameObject);
+        } else if (other.CompareTag("Door")) {
+            return;
         } else {
             player.ClearHook(index);
         }
