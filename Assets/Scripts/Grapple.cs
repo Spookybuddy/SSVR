@@ -32,6 +32,7 @@ public class Grapple : MonoBehaviour
 
     //Privates
     private Vector3 respawn;
+    private Vector3 playerOffset;
     private GameObject[] grabbed;
     private Vector3[] dist;
     private GameObject[] current;
@@ -56,6 +57,7 @@ public class Grapple : MonoBehaviour
         tugSpd = pullSpd / 6;
 
         respawn = transform.position;
+        playerOffset = Vector3.up * 0.5f;
     }
 
     private void Update()
@@ -88,7 +90,7 @@ public class Grapple : MonoBehaviour
         for (int i = 0; i < 2; i++) {
             if (current[i] != null) {
                 //Distance between player and hook
-                if (hooked[i]) dist[i] = (current[i].transform.position - player.transform.position).normalized * 0.75f;
+                if (hooked[i]) dist[i] = (current[i].transform.position - (player.transform.position + playerOffset)).normalized * 0.6f;
 
                 //Delete when let go and pulled objects rigid body retains velocity
                 if (!grips[i]) {
@@ -110,10 +112,9 @@ public class Grapple : MonoBehaviour
                     grabbed[i].GetComponent<BoxCollider>().enabled = false;
                 }
             } else {
-                //Velocity retained after hooked & released. Add in raycast collision detection
-                if (Physics.Raycast(player.transform.position, dist[i], out RaycastHit hit, 5, 2, QueryTriggerInteraction.Ignore)) {
+                //Velocity retained after hooked & released, using raycast collision detection
+                if (Physics.Raycast(player.transform.position + Vector3.up, dist[i], out RaycastHit hit, 0.8f)) {
                     dist[i] = Vector3.Reflect(dist[i], hit.normal);
-                    Debug.Log("Collide");
                 }
                 dist[i] = Vector3.MoveTowards(dist[i], Vector3.zero, tugSpd * Time.deltaTime);
                 player.transform.position += dist[i];
@@ -127,10 +128,9 @@ public class Grapple : MonoBehaviour
             }
         }
 
-        //Player is pulled towards most recent projectile that hooked
+        //Player is pulled and rotated towards most recent projectile that hooked
         if (hooked[0] ^ hooked[1]) {
             player.transform.position = Vector3.MoveTowards(player.transform.position, lastHit, pullSpd * Time.deltaTime);
-            if (Vector3.Distance(player.transform.position, lastHit) < severanceRange) ClearHook(hooked[0] ? 0 : 1);
         }
 
         //Player falls out of bounds
@@ -149,7 +149,17 @@ public class Grapple : MonoBehaviour
     public void GrappleHit(int index)
     {
         for (int i = 0; i < 2; i++) hooked[i] = (i == index);
-        lastHit = current[index].transform.position;
+
+        //Move the player to just before the wall, and adjust the line 
+        Vector3 ray = ((player.transform.position - current[index].transform.position).normalized * 0.2f) - playerOffset;
+        lastHit = reticle[index].transform.position + ray;
+        current[index].transform.position = reticle[index].transform.position;
+
+        //Rotate the player once
+        if (!reticle[index].GetComponent<Renderer>().isVisible) {
+            Vector3 look = Vector3.RotateTowards(Vector3.up, new Vector3(lastHit.x, player.transform.position.y, lastHit.z), 180, 0.0f);
+            player.transform.LookAt(look);
+        }
     }
 
     //Hook hits an object that is moveable
