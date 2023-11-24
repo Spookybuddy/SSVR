@@ -350,14 +350,14 @@ RectTransform:
   m_GameObject: {fileID: 642530198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.021087738, y: 0.0075776684, z: 0.021087738}
+  m_LocalScale: {x: 0.021087738, y: 0.005281635, z: 0.021087738}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1514233856}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.404}
+  m_AnchoredPosition: {x: 0, y: -0.349}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642530200
@@ -732,8 +732,9 @@ GameObject:
   - component: {fileID: 997332985}
   - component: {fileID: 997332984}
   - component: {fileID: 997332983}
+  - component: {fileID: 997332986}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Return Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,7 +749,7 @@ RectTransform:
   m_GameObject: {fileID: 997332981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0072398544, y: 0.015117776, z: 0.011721234}
+  m_LocalScale: {x: 0.0072398544, y: 0.014136934, z: 0.011721234}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1514233856}
@@ -801,7 +802,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 997332984}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 997332986}
+        m_TargetAssemblyTypeName: PanelOpener, Assembly-CSharp
+        m_MethodName: OpenPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &997332984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,6 +853,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997332981}
   m_CullTransparentMesh: 1
+--- !u!114 &997332986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997332981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489f6191702899f49b4af9a2d9062832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel: {fileID: 1514233855}
 --- !u!1 &1034086307
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +878,7 @@ GameObject:
   - component: {fileID: 1034086311}
   - component: {fileID: 1034086310}
   - component: {fileID: 1034086309}
+  - component: {fileID: 1034086312}
   m_Layer: 5
   m_Name: Credits Button
   m_TagString: Untagged
@@ -921,7 +948,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1034086310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1034086312}
+        m_TargetAssemblyTypeName: PanelOpener, Assembly-CSharp
+        m_MethodName: OpenPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1034086310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,6 +999,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034086307}
   m_CullTransparentMesh: 1
+--- !u!114 &1034086312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034086307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489f6191702899f49b4af9a2d9062832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel: {fileID: 1514233855}
 --- !u!114 &1192411278 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8189171602324410035, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
@@ -1151,7 +1203,7 @@ RectTransform:
   m_GameObject: {fileID: 1514233855}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.931078, y: 0.82661086, z: 0.90783745}
+  m_LocalScale: {x: 1.001095, y: 1.0025053, z: 0.90783745}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 642530199}
@@ -1160,7 +1212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.052}
+  m_AnchoredPosition: {x: 0, y: 0.0009999871}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1514233857
@@ -1176,14 +1228,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.10980393, g: 0.1137255, b: 0.3254902, a: 0.8}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 20ae2a5894efe354da8f0b6fa542947c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

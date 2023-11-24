@@ -5,18 +5,17 @@ using UnityEngine;
 public class PanelOpener : MonoBehaviour
 {
 
-    public gameObject Panel;
+    public GameObject Panel;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void OpenPanel()
     {
-        
-    }
+        if (Panel != null)
+        {
+            bool isActive = Panel.activeSelf;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            Panel.SetActive(!isActive);
+        }
+
+
     }
 }
