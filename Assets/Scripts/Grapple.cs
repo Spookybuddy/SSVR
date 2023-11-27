@@ -118,7 +118,10 @@ public class Grapple : MonoBehaviour
                 }
 
                 //Rope max length
-                if (Vector2.Distance(current[i].transform.position, player.transform.position) > grappleLength) ClearHook(i);
+                if (Vector3.Distance(current[i].transform.position, player.transform.position) > grappleLength) ClearHook(i);
+
+                //Rope min length
+                if (Vector3.Distance(current[i].transform.position, player.transform.position) < 0.1f) ClearHook(i);
 
                 //Objects pulled towards player
                 if (pull[i]) {

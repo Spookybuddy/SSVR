@@ -15,26 +15,33 @@ public class Hooking : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        //Riccocheted grapple ignores colliders
+        if (returning && !other.CompareTag("Door")) {
+            player.ClearHook(index);
+            return;
+        }
+
         //Can only grab onto objects tagged so
         if (other.CompareTag("Grapple")) {
-            if (returning) player.ClearHook(index);
+            //Generic grapple
             rigid.velocity = Vector3.zero;
             player.GrappleHit(index, 1);
         } else if (other.CompareTag("Ceiling")) {
             //Vertical offset is greater on roof
-            if (returning) player.ClearHook(index);
             rigid.velocity = Vector3.zero;
             player.GrappleHit(index, 1.5f);
         } else if (other.CompareTag("Grabbable")) {
-            if (returning) player.ClearHook(index);
+            //Pull towards player
             rigid.velocity = Vector3.zero;
             player.GrapplePull(index, other.gameObject);
         } else if (other.CompareTag("Door")) {
+            //Bounce off of door
             if (!returning) {
                 rigid.velocity = -rigid.velocity;
                 returning = true;
             }
         } else {
+            //Ungrabbable
             player.ClearHook(index);
         }
     }
