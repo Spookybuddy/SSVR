@@ -5,7 +5,8 @@ public class Door : MonoBehaviour
 {
     private bool state;
     private bool called;
-    public Transform player;
+    private Transform player;
+    public GameObject wall;
     public float openSpd;
     public Transform[] doorParts;
     private Vector3[] begins;
@@ -13,6 +14,7 @@ public class Door : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindWithTag("Player").transform;
         begins = new Vector3[doorParts.Length];
         for (int i = 0; i < doorParts.Length; i++) {
             begins[i] = doorParts[i].position;
@@ -20,11 +22,12 @@ public class Door : MonoBehaviour
         }
     }
 
+    //Move doors to state only when called
     void Update()
     {
         if (called) {
             for (int i = 0; i < doorParts.Length; i++) {
-                doorParts[i].position = Vector3.MoveTowards(doorParts[i].position, state ? ends[i] : begins[i], Time.deltaTime * openSpd * 3);
+                doorParts[i].position = Vector3.MoveTowards(doorParts[i].position, state ? ends[i] : begins[i], Time.deltaTime * openSpd * 4);
             }
         }
     }
@@ -39,26 +42,6 @@ public class Door : MonoBehaviour
         }
     }
 
-    /*
-    //Player enters bounds
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player")) {
-            state = true;
-            StartCoroutine(DoorMove());
-        }
-    }
-
-    //Player exits bounds
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player")) {
-            state = false;
-            StartCoroutine(DoorMove());
-        }
-    }
-    */
-
     //UI open function
     public void DoorButton()
     {
@@ -72,5 +55,6 @@ public class Door : MonoBehaviour
     {
         yield return new WaitForSeconds(openSpd);
         called = false;
+        wall.SetActive(!state);
     }
 }

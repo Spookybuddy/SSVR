@@ -22,14 +22,15 @@ public class Grapple : MonoBehaviour
     private float tugSpd;
     public float triggerSensitivity;
     public float grappleLength;
-    public float severanceRange;
     public float ropeThickness;
+    public float gravityStrength;
 
     //States
     private bool[] grips;
     private bool[] hooked;
     private bool[] held;
     private bool[] pull;
+    private bool usingGravity;
 
     //Privates
     private Vector3 respawn;
@@ -37,17 +38,17 @@ public class Grapple : MonoBehaviour
     private Vector3[] dist;
     private GameObject[] current;
     private Vector3 lastHit;
-    private readonly Vector3[] zeroed = new Vector3[] {Vector3.down, Vector3.down};
+    private float gravVelocity;
 
+    //Mesh Data
     private Mesh[] ropes;
-    private Vector3[] RVerts;
-    private Vector3[] LVerts;
-    private Vector2[] RUvs;
-    private Vector2[] LUvs;
+    private Vector3[][] Verts;
+    private Vector2[][] Uvs;
     private readonly int[] Tris = new int[] { 0, 4, 1, 4, 5, 1, 1, 5, 2, 5, 6, 2, 2, 6, 3, 6, 7, 3, 3, 7, 0, 7, 4, 0, 0, 1, 3, 1, 2, 3 };
 
     void Awake()
     {
+        usingGravity = true;
         HandPos = new Vector3[2];
         HandRot = new Quaternion[2];
 
@@ -60,10 +61,12 @@ public class Grapple : MonoBehaviour
         grabbed = new GameObject[2];
 
         ropes = new Mesh[2];
-        RVerts = new Vector3[8];
-        LVerts = new Vector3[8];
-        RUvs = new Vector2[8];
-        LUvs = new Vector2[8];
+        Verts = new Vector3[2][];
+        Uvs = new Vector2[2][];
+        for (int i = 0; i < 2; i++) {
+            Verts[i] = new Vector3[8];
+            Uvs[i] = new Vector2[8];
+        }
 
         dist = new Vector3[2];
         triggerSensitivity = Mathf.Clamp01(triggerSensitivity);
@@ -144,6 +147,9 @@ public class Grapple : MonoBehaviour
             }
         }
 
+        //Update Gravity
+        usingGravity = !(hooked[0] || hooked[1]);
+
         //Player is pulled and rotated towards most recent projectile that hooked
         if (hooked[0] ^ hooked[1]) {
             player.transform.position = Vector3.MoveTowards(player.transform.position, lastHit, pullSpd * Time.deltaTime);
@@ -151,6 +157,29 @@ public class Grapple : MonoBehaviour
 
         //Player falls out of bounds
         if (player.transform.position.y < -20) player.transform.position = respawn;
+    }
+
+    //Player gravity
+    private void FixedUpdate()
+    {
+        Vector3 offset = new Vector3(player.transform.position.x, player.transform.position.y + 0.35f, player.transform.position.z);
+        if (usingGravity) {
+            if (Physics.Raycast(offset, Vector3.down, out RaycastHit ground, 1.5f)) {
+                gravVelocity = 0;
+                float Y = ground.point.y + 0.05f;
+                if (player.transform.position.y - Y > 0.05f) {
+                    Vector3 change = new Vector3(0, (player.transform.position.y - Y) / 2, 0);
+                    player.transform.position -= change;
+                }
+            } else {
+                gravVelocity = Mathf.Max(gravVelocity - (Time.deltaTime * gravityStrength), -3);
+                Vector3 downward = new Vector3(0, gravVelocity, 0);
+                player.transform.position += downward;
+                if (Physics.Raycast(offset, Vector3.down, 1.5f)) gravVelocity = 0;
+            }
+        }
+
+        Debug.DrawRay(offset, Vector3.down * 1.1f, Color.red, 5);
     }
 
     //Spawn projectile hook with velocity
@@ -170,7 +199,7 @@ public class Grapple : MonoBehaviour
         Vector3 ray = ((player.transform.position - current[index].transform.position).normalized * 0.25f) - new Vector3(0, roof, 0);
         lastHit = reticle[index].transform.position + ray;
         current[index].transform.position = reticle[index].transform.position;
-        GrappleLook(index);
+        //GrappleLook(index);
     }
 
     //Rotate the player once to face the hook if it is not already visible
@@ -205,17 +234,10 @@ public class Grapple : MonoBehaviour
     {
         Vector3 up = Hands[i].up * ropeThickness;
         Vector3 right = Hands[i].right * ropeThickness;
-        if (i == 0) {
-            RVerts[0] = HandPos[i] + up;
-            RVerts[1] = HandPos[i] + right;
-            RVerts[2] = HandPos[i] - up;
-            RVerts[3] = HandPos[i] - right;
-        } else {
-            LVerts[0] = HandPos[i] + up;
-            LVerts[1] = HandPos[i] + right;
-            LVerts[2] = HandPos[i] - up;
-            LVerts[3] = HandPos[i] - right;
-        }
+        Verts[i][0] = HandPos[i] + up;
+        Verts[i][1] = HandPos[i] + right;
+        Verts[i][2] = HandPos[i] - up;
+        Verts[i][3] = HandPos[i] - right;
     }
 
     //Sets the vertices relative to projectile
@@ -223,34 +245,19 @@ public class Grapple : MonoBehaviour
     {
         Vector3 up = current[i].transform.up * ropeThickness;
         Vector3 right = current[i].transform.right * ropeThickness;
-        if (i == 0) {
-            RVerts[4] = current[i].transform.position + up;
-            RVerts[5] = current[i].transform.position + right;
-            RVerts[6] = current[i].transform.position - up;
-            RVerts[7] = current[i].transform.position - right;
-        } else {
-            LVerts[4] = current[i].transform.position + up;
-            LVerts[5] = current[i].transform.position + right;
-            LVerts[6] = current[i].transform.position - up;
-            LVerts[7] = current[i].transform.position - right;
-        }
+        Verts[i][4] = current[i].transform.position + up;
+        Verts[i][5] = current[i].transform.position + right;
+        Verts[i][6] = current[i].transform.position - up;
+        Verts[i][7] = current[i].transform.position - right;
     }
 
     //Set uvs to tile
     private void UVS(int i)
     {
-        if (i == 0) {
-            for (int j = 0; j < 4; j++) {
-                float D = Vector3.Distance(current[i].transform.position, HandPos[i]) / 2;
-                RUvs[j] = Vector2.zero;
-                RUvs[j + 4] = new Vector2(D, 0);
-            }
-        } else {
-            for (int j = 0; j < 4; j++) {
-                float D = Vector3.Distance(current[i].transform.position, HandPos[i]) / 2;
-                RUvs[j] = Vector2.zero;
-                RUvs[j + 4] = new Vector2(D, 0);
-            }
+        for (int j = 0; j < 4; j++) {
+            float D = Vector3.Distance(current[i].transform.position, HandPos[i]) / 2;
+            Uvs[i][j] = Vector2.zero;
+            Uvs[i][j + 4] = new Vector2(D, 0);
         }
     }
 
@@ -260,13 +267,8 @@ public class Grapple : MonoBehaviour
         if (ropes[i] == null) ropes[i] = new Mesh();
         ropes[i].Clear();
         UVS(i);
-        if (i == 0) {
-            ropes[i].vertices = RVerts;
-            ropes[i].SetUVs(0, RUvs);
-        } else {
-            ropes[i].vertices = LVerts;
-            ropes[i].SetUVs(0, LUvs);
-        }
+        ropes[i].vertices = Verts[i];
+        ropes[i].SetUVs(0, Uvs[i]);
         ropes[i].triangles = Tris;
         ropes[i].RecalculateNormals();
         meshes[i].mesh = ropes[i];

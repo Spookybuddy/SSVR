@@ -10,6 +10,7 @@ TagManager:
   - Emissive_to_baked
   - Door
   - Ceiling
+  - Puzzle_Test
   layers:
   - Default
   - TransparentFX
