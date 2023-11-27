@@ -7,10 +7,11 @@ public class GameManager : MonoBehaviour
     public GameObject title;
     public GameObject credits;
     public GameObject options;
+    public FadeScreen fadeScreen;
 
     public void LoadScene()
     {
-        StartCoroutine(Load());
+        StartCoroutine(GoToSceneRoutine(1));
     }
 
     public void OpenMenu(int menu)
@@ -35,9 +36,11 @@ public class GameManager : MonoBehaviour
         options.SetActive(o);
     }
 
-    private IEnumerator Load()
+    private IEnumerator GoToSceneRoutine(int sceneIndex)
     {
-        AsyncOperation async = SceneManager.LoadSceneAsync("Solarius_Interior");
-        while (!async.isDone) yield return null;
+        fadeScreen.FadeOut();
+        yield return new WaitForSeconds(fadeScreen.fadeDuration);
+
+        SceneManager.LoadScene(1);
     }
 }
