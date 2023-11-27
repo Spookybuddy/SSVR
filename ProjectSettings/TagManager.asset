@@ -7,6 +7,9 @@ TagManager:
   - Anchor
   - Grapple
   - Grabbable
+  - Emissive_to_baked
+  - Door
+  - Ceiling
   layers:
   - Default
   - TransparentFX
@@ -14,7 +17,7 @@ TagManager:
   - Ignore Player
   - Water
   - UI
-  - 
+  - Overlay
   - 
   - 
   - 
