@@ -24,7 +24,18 @@ public class PuzzleSystem : MonoBehaviour
                     task.locked = true;
                 }
                 locked = true;
-                Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            }
+        }
+    }
+
+    //Restore a broken puzzle when destroying objects
+    public void Restore(Puzzle fix)
+    {
+        for (int i = 0; i < subTasks.Length; i++) {
+            if (subTasks[i] == null) {
+                Debug.Log("NULL: " + i);
+                subTasks[i] = fix;
+                return;
             }
         }
     }

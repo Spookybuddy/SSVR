@@ -9,21 +9,20 @@ public class Puzzle : MonoBehaviour
     public bool locked;
 
     [Header("Refuel Puzzle Components")]
-    public LineRenderer meter;
+    public Transform meter;
     public Push button;
     public float target;
     public float range;
+    public float maximum;
     private float value;
-    private Vector3 end;
+    private Vector3 scale;
 
     private void Start()
     {
         locked = false;
         completed = false;
-        if (meter != null) {
-            end = meter.GetPosition(0);
-            meter.SetPosition(1, end);
-        }
+        if (meter != null) scale = meter.localScale;
+        maximum = Mathf.Max(maximum, 0.1f);
     }
 
     //Update the values and line for fill puzzle
@@ -31,13 +30,13 @@ public class Puzzle : MonoBehaviour
     {
         if (puzzleType == 2 && !locked) {
             //Update values
-            value = Mathf.Clamp(value + (button.threshold ? Time.deltaTime : -Time.deltaTime), 0, 5);
+            value = Mathf.Clamp(value + (button.value > 0.2f ? Time.deltaTime * button.value * 2 : -Time.deltaTime), 0.05f, maximum);
 
             //Check ranges (Can fall out of range)
             completed = (value >= target - range && value <= target + range);
 
-            //Update line;
-            meter.SetPosition(1, new Vector3(end.x, value / 5 + end.y, end.z));
+            //Update fill;
+            meter.localScale = new Vector3(scale.x, scale.y, value / maximum);
         }
     }
 
@@ -47,6 +46,11 @@ public class Puzzle : MonoBehaviour
         if (puzzleType == 0 && !locked) {
             if (other.CompareTag(tagType)) {
                 completed = true;
+                if (TryGetComponent<Wire>(out Wire snap)) {
+                    Vector3 save = other.transform.position;
+                    Destroy(other.gameObject);
+                    snap.Freeze(save);
+                }
             }
         }
     }

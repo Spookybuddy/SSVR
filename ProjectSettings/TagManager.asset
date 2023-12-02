@@ -11,6 +11,8 @@ TagManager:
   - Door
   - Ceiling
   - Puzzle_Test
+  - Ground
+  - InstantKill
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Water
   - UI
   - Overlay
-  - 
+  - Ignore Self
   - 
   - 
   - 
