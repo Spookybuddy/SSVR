@@ -7,12 +7,11 @@ public class Push : MonoBehaviour
     public Vector3 direction;
     public Transform[] hands;
     public float padding;
-    public bool threshold;
 
     private int closest;
     private bool press;
     private bool hold;
-    private float value;
+    public float value;
     private int _dir;
 
     //Save start and end points
@@ -48,7 +47,5 @@ public class Push : MonoBehaviour
             value = Mathf.Clamp01(value - (Time.deltaTime * 2));
             transform.position = Vector3.Lerp(start, final, value);
         }
-
-        threshold = (value > 0.5f);
     }
 }
