@@ -4,7 +4,7 @@ public class Hooking : MonoBehaviour
 {
     private Grapple player;
     private int index;
-    private bool returning;
+    public bool returning;
     public Rigidbody rigid;
 
     public void Setup(Grapple G, int N)

@@ -25,7 +25,7 @@ public class Puzzle : MonoBehaviour
         maximum = Mathf.Max(maximum, 0.1f);
     }
 
-    //Update the values and line for fill puzzle
+    //Update the values and scale for fill puzzle
     private void FixedUpdate()
     {
         if (puzzleType == 2 && !locked) {
@@ -43,6 +43,7 @@ public class Puzzle : MonoBehaviour
     //Check puzzle type and matching tag when entering
     private void OnTriggerEnter(Collider other)
     {
+        //Connecting
         if (puzzleType == 0 && !locked) {
             if (other.CompareTag(tagType)) {
                 completed = true;
@@ -51,6 +52,14 @@ public class Puzzle : MonoBehaviour
                     Destroy(other.gameObject);
                     snap.Freeze(save);
                 }
+                return;
+            }
+        }
+
+        //Return removable
+        if (puzzleType == 1 && !locked) {
+            if (other.CompareTag(tagType)) {
+                completed = false;
             }
         }
     }

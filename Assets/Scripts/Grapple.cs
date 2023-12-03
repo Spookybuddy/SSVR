@@ -120,8 +120,10 @@ public class Grapple : MonoBehaviour
                 //Rope max length
                 if (Vector3.Distance(current[i].transform.position, player.transform.position) > grappleLength) ClearHook(i);
 
-                //Rope min length
-                if (Vector3.Distance(current[i].transform.position, player.transform.position) < 0.1f) ClearHook(i);
+                //Rope min length when returning
+                if (current[i].GetComponent<Hooking>().returning) {
+                    if (Vector3.Distance(current[i].transform.position, HandPos[i]) < 0.5f) ClearHook(i);
+                }
 
                 //Objects pulled towards player
                 if (pull[i]) {
@@ -181,8 +183,6 @@ public class Grapple : MonoBehaviour
                 if (Physics.Raycast(offset, Vector3.down, 1.5f)) gravVelocity = 0;
             }
         }
-
-        Debug.DrawRay(offset, Vector3.down * 1.1f, Color.red, 5);
     }
 
     //Spawn projectile hook with velocity

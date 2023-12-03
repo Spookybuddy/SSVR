@@ -13,6 +13,18 @@ TagManager:
   - Puzzle_Test
   - Ground
   - InstantKill
+  - StartingPoint
+  - Interactable
+  - Enemy
+  - CastPoint
+  - Orientation
+  - Gun
+  - Projectile
+  - Checkpoint
+  - GameManager
+  - CheckpointManager
+  - Streaming
+  - CleanVent
   layers:
   - Default
   - TransparentFX
