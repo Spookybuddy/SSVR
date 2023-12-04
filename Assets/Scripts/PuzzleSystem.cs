@@ -33,7 +33,6 @@ public class PuzzleSystem : MonoBehaviour
     {
         for (int i = 0; i < subTasks.Length; i++) {
             if (subTasks[i] == null) {
-                Debug.Log("NULL: " + i);
                 subTasks[i] = fix;
                 return;
             }

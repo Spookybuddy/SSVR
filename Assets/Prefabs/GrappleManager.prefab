@@ -148,7 +148,7 @@ MonoBehaviour:
   pullSpd: 25
   triggerSensitivity: 0.2
   grappleLength: 35
-  ropeThickness: 0.025
+  ropeThickness: 0.02
   gravityStrength: 0.1
 --- !u!1 &5364698990314590325
 GameObject:

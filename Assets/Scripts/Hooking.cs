@@ -34,15 +34,16 @@ public class Hooking : MonoBehaviour
             //Pull towards player
             rigid.velocity = Vector3.zero;
             player.GrapplePull(index, other.gameObject);
-        } else if (other.CompareTag("Door")) {
-            //Bounce off of door
+        } else if (other.CompareTag("Ground")) {
+            //Additional vertical offset on floor
+            rigid.velocity = Vector3.zero;
+            player.GrappleHit(index, -0.2f);
+        } else {
+            //Ungrabbable
             if (!returning) {
                 rigid.velocity = -rigid.velocity;
                 returning = true;
             }
-        } else {
-            //Ungrabbable
-            player.ClearHook(index);
         }
     }
 }

@@ -15,6 +15,7 @@ public class Grapple : MonoBehaviour
     public GameObject[] reticle;
     public GameObject projectile;
     public GameObject player;
+    public GameObject[] controllers;
 
     //Editor Values
     public float fireSpd;
@@ -68,7 +69,6 @@ public class Grapple : MonoBehaviour
             Uvs[i] = new Vector2[8];
         }
 
-        dist = new Vector3[2];
         triggerSensitivity = Mathf.Clamp01(triggerSensitivity);
         tugSpd = pullSpd / 6;
 
@@ -133,10 +133,14 @@ public class Grapple : MonoBehaviour
                     grabbed[i].GetComponent<BoxCollider>().enabled = false;
                 }
             } else {
-                //Velocity retained after hooked & released, using raycast collision detection
+                //Velocity retained after hooked & released, using raycast collision detection from center & from ground
                 if (Physics.Raycast(player.transform.position + Vector3.up, dist[i], out RaycastHit hit, 0.8f)) {
                     Vector3 scalar = new Vector3(Mathf.Abs(hit.normal.x), Mathf.Abs(hit.normal.y), Mathf.Abs(hit.normal.z));
                     scalar = Vector3.one - scalar;
+                    dist[i] = Vector3.Scale(dist[i], scalar);
+                }
+                if (Physics.Raycast(player.transform.position, Vector3.down, out RaycastHit down, 0.2f)) {
+                    Vector3 scalar = new Vector3(1, 0, 1);
                     dist[i] = Vector3.Scale(dist[i], scalar);
                 }
                 dist[i] = Vector3.MoveTowards(dist[i], Vector3.zero, tugSpd * Time.deltaTime);
@@ -157,6 +161,12 @@ public class Grapple : MonoBehaviour
 
         //Player is pulled and rotated towards most recent projectile that hooked
         if (hooked[0] ^ hooked[1]) {
+            int i = hooked[0] ? 0 : 1;
+            //Raycast to prevent clipping into ground
+            Vector3 downward = new Vector3(dist[i].x, dist[i].y - 0.167f, dist[i].z);
+            if (Physics.Raycast(player.transform.position, downward, out RaycastHit hit, 0.2f)) {
+                lastHit = new Vector3(lastHit.x, hit.point.y + 0.2f, lastHit.z);
+            }
             player.transform.position = Vector3.MoveTowards(player.transform.position, lastHit, pullSpd * Time.deltaTime);
         }
 
@@ -191,6 +201,7 @@ public class Grapple : MonoBehaviour
         current[index] = Instantiate(projectile, HandPos[index], HandRot[index]);
         current[index].GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * fireSpd, ForceMode.Impulse);
         current[index].GetComponent<Hooking>().Setup(this, index);
+        controllers[index].SetActive(false);
     }
 
     //When a hook hits a grapplable object, set it as the target position and reset the other hook
@@ -202,17 +213,6 @@ public class Grapple : MonoBehaviour
         Vector3 ray = ((player.transform.position - current[index].transform.position).normalized * 0.25f) - new Vector3(0, roof, 0);
         lastHit = reticle[index].transform.position + ray;
         current[index].transform.position = reticle[index].transform.position;
-        //GrappleLook(index);
-    }
-
-    //Rotate the player once to face the hook if it is not already visible
-    private void GrappleLook(int index)
-    {
-        if (!reticle[index].GetComponent<Renderer>().isVisible) {
-            Vector3 look = Vector3.RotateTowards(Vector3.up, new Vector3(lastHit.x, player.transform.position.y, lastHit.z), 180, 0.0f);
-            player.transform.LookAt(look);
-            player.transform.localEulerAngles = new Vector3(0, player.transform.localEulerAngles.y, 0);
-        }
     }
 
     //Hook hits an object that is moveable
@@ -230,6 +230,7 @@ public class Grapple : MonoBehaviour
         grips[index] = false;
         hooked[index] = false;
         pull[index] = false;
+        controllers[index].SetActive(true);
     }
 
     //Sets the vertices relative to hands
