@@ -9,26 +9,20 @@ public class TaskList : MonoBehaviour
     public float rotationPadding;
 
     private float distance;
-
-    public float rotationX;
-    public float rotationZ;
+    public float rotation;
 
     private bool handRange;
-    private bool handRotateX;
-    private bool handRotateZ;
+    private bool handRotate;
 
     void Update()
     {
         distance = Vector3.Distance(mainCam.transform.position, checklist.transform.position);
-        rotationZ = checklist.transform.eulerAngles.z;
-        rotationX = checklist.transform.eulerAngles.x;
+        rotation = checklist.transform.eulerAngles.z;
 
         //Check both rotation and distance to display
-        handRotateX = (rotationX > 45 - rotationPadding && rotationX < 45 + rotationPadding);
-        handRotateZ = (rotationZ > 90 - rotationPadding && rotationZ < 90 + rotationPadding);
-        if (rotationZ > 300) handRotateZ = true;
+        handRotate = (rotation > 90 - rotationPadding && rotation < 90 + rotationPadding);
         handRange = (distance > minDistance && distance < maxDistance);
         
-        checklist.SetActive(handRange && (handRotateZ));
+        checklist.SetActive(handRange && handRotate);
     }
 }

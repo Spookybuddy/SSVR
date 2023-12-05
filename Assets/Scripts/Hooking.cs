@@ -29,7 +29,7 @@ public class Hooking : MonoBehaviour
         } else if (other.CompareTag("Ceiling")) {
             //Vertical offset is greater on roof
             rigid.velocity = Vector3.zero;
-            player.GrappleHit(index, 1.5f);
+            player.GrappleHit(index, 1.6f);
         } else if (other.CompareTag("Grabbable")) {
             //Pull towards player
             rigid.velocity = Vector3.zero;

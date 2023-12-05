@@ -14,6 +14,7 @@ public class TaskManager : MonoBehaviour
             for (int i = 0; i < tasks.Length; i++) {
                 if (!tasks[i].completed) {
                     completed = false;
+                    checklist[i].fontStyle = FontStyles.Normal;
                 } else {
                     checklist[i].fontStyle = FontStyles.Strikethrough;
                 }

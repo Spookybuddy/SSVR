@@ -5,7 +5,7 @@ public class Wire : MonoBehaviour
 {
     public Transform target;
     private Transform replacement;
-    private Transform parental;
+    public Transform parental;
     public float maxDistance;
     public float thickness;
     private Vector3 start;
@@ -14,6 +14,8 @@ public class Wire : MonoBehaviour
     private Vector3 back;
     private Rigidbody targetRig;
     private bool retract;
+    private bool connected;
+    private readonly Vector3 scale = new Vector3(0.001f, 0.001f, 0.001f);
 
     //Mesh Data
     public MeshFilter render;
@@ -25,84 +27,80 @@ public class Wire : MonoBehaviour
     private void Start()
     {
         target.localEulerAngles = Vector3.zero;
-        target.localScale = Vector3.one * 0.001f;
-        parental = transform.parent;
-        start = transform.position;
+        target.localScale = scale;
+        start = target.transform.position;
         targetRig = target.GetComponent<Rigidbody>();
         retract = false;
+        connected = false;
         right = target.right * thickness;
-        front = target.up * 0.09f;
+        front = target.up * 0.05f;
 
-        //Preset only if non-inherited mesh
-        if (mesh == null) {
-            back = target.up * -0.02f;
-            mesh = new Mesh();
-            Verts = new Vector3[8];
-            Uvs = new Vector2[8];
-            Vertex();
-            Vertexes();
-            GenerateMesh();
-        } else {
-            StartCoroutine(FrameDelay());
-        }
+        back = target.up * -0.01f;
+        mesh = new Mesh();
+        Verts = new Vector3[8];
+        Uvs = new Vector2[8];
+        Vertex();
+        Vertexes();
+        GenerateMesh();
 
-        back = target.up * -0.09f;
+        back = target.up * -0.05f;
     }
 
     private void FixedUpdate()
     {
-        //Too far away
-        if (Vector3.Distance(start, target.position) > maxDistance) {
-            target.position = start;
-            GetComponents();
-            ResetPhysics();
-            retract = true;
-        }
-
-        //Renable gravity once far enough away
-        if (!targetRig.useGravity) {
-            if (Vector3.Distance(start, target.position) > 0.1f) targetRig.useGravity = true;
-        }
-
-        //Velocity?
-        if (targetRig.velocity.magnitude > 0.1f) {
-            ResetPhysics();
-            retract = true;
-        }
-
-        //Change from instant teleport to pull back for coolness sake
-        if (retract) {
-            target.transform.position = Vector3.MoveTowards(target.position, start, maxDistance * Time.deltaTime * 2);
-            if (Vector3.Distance(start, target.position) < 0.1f) {
-                retract = false;
-                target.transform.position = start;
+        if (!connected) {
+            //Too far away
+            if (Vector3.Distance(start, target.position) > maxDistance) {
+                GetComponents(start);
+                ResetPhysics();
+                retract = true;
             }
-        }
 
-        //Update meshes
-        if (targetRig.useGravity || retract) {
-            Vertexes();
-            GenerateMesh();
+            //Renable gravity once far enough away
+            if (!targetRig.useGravity) {
+                if (Vector3.Distance(start, target.position) > 0.1f) targetRig.useGravity = true;
+            }
+
+            //Velocity?
+            if (targetRig.velocity.magnitude > 0.1f) {
+                ResetPhysics();
+                retract = true;
+            }
+
+            //Change from instant teleport to pull back for coolness sake
+            if (retract) {
+                target.transform.position = Vector3.MoveTowards(target.position, start, maxDistance * Time.deltaTime * 2);
+                if (Vector3.Distance(start, target.position) < 0.1f) {
+                    retract = false;
+                    target.transform.position = start;
+                }
+            }
+
+            //Update meshes
+            if (targetRig.useGravity || retract) {
+                Vertexes();
+                GenerateMesh();
+            }
         }
     }
 
     //Destroys and replaces the wire grab so the player lets go
-    private void GetComponents()
+    private void GetComponents(Vector3 spawn)
     {
-        replacement = Instantiate(target, start, Quaternion.identity);
+        replacement = Instantiate(target, spawn, Quaternion.identity, parental);
+        replacement.localScale = scale;
         targetRig = replacement.GetComponent<Rigidbody>();
         replacement.name = target.name;
-        replacement.parent = parental;
-
-        //Transfer mesh
-        Vertex();
-        Vertexes();
-        GenerateMesh();
-        replacement.GetComponent<Wire>().GetMeshData(Verts, Uvs, mesh);
-
         Destroy(target.gameObject);
         target = replacement;
         replacement = null;
+
+        //Update mesh
+        Vertex();
+        Vertexes();
+        GenerateMesh();
+
+        StartCoroutine(FrameDelay());
     }
 
     //Reset physics to 0
@@ -115,18 +113,15 @@ public class Wire : MonoBehaviour
         target.rotation = Quaternion.identity;
     }
 
-    //Return to goal
+    //Once connected, update the puzzle system, and lock into place
     public void Freeze(Vector3 point)
     {
         target.transform.position = point;
-        GetComponents();
+        GetComponents(point);
         ResetPhysics();
-
-        //Disable collider for grabbing and update the puzzles 
-        GetComponent<BoxCollider>().enabled = false;
-        GetComponent<Puzzle>().completed = true;
-        target.transform.position = point;
-        target.transform.rotation = Quaternion.identity;
+        retract = false;
+        connected = true;
+        StartCoroutine(FrameDelayDone());
     }
 
     //Pass mesh from destroyed object
@@ -181,10 +176,24 @@ public class Wire : MonoBehaviour
         Verts[7] = target.position - right + back;
     }
 
+    //Final resting place takes into account the difference in heights
+    private void Vertices(Vector3 start, Vector3 end)
+    {
+
+    }
+
     //Delayed update to puzzle manager
     private IEnumerator FrameDelay()
     {
         yield return new WaitForSeconds(Time.deltaTime);
-        parental.GetComponent<PuzzleSystem>().Restore(GetComponent<Puzzle>());
+        parental.GetComponent<PuzzleSystem>().Restore(target.GetComponent<Puzzle>());
+    }
+
+    private IEnumerator FrameDelayDone()
+    {
+        yield return new WaitForSeconds(Time.deltaTime * 2);
+        parental.GetComponent<PuzzleSystem>().Restore(target.GetComponent<Puzzle>());
+        target.GetComponent<BoxCollider>().enabled = false;
+        target.GetComponent<Puzzle>().completed = true;
     }
 }
