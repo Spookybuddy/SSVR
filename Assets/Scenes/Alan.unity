@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &47057747 stripped
+--- !u!1 &102329444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1016806621371145588, guid: cdd84b9dcbeb01a46a42404c88e3b252, type: 3}
   m_PrefabInstance: {fileID: 5748385948619027724}
@@ -358,11 +358,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1603422314 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2485044917291972351, guid: 7b3a029c2e6200345b05a69e18edfa06, type: 3}
-  m_PrefabInstance: {fileID: 1827831800123583005}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1882086436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -648,7 +643,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2871854915733156396, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1603422314}
+      addedObject: {fileID: 1937191981}
     - targetCorrespondingSourceObject: {fileID: 2871854917430088270, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 537467333}
@@ -664,7 +659,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2871854917430088270, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
   m_PrefabInstance: {fileID: 1882086436}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1827831800123583005
+--- !u!1001 &1937191980
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -714,21 +709,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4559614815614310819, guid: 7b3a029c2e6200345b05a69e18edfa06, type: 3}
       propertyPath: m_Name
-      value: Sphere
+      value: Player head collider for Hand UI
       objectReference: {fileID: 0}
     - target: {fileID: 7740865309431346272, guid: 7b3a029c2e6200345b05a69e18edfa06, type: 3}
       propertyPath: m_HoverExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 47057747}
+      objectReference: {fileID: 102329444}
     - target: {fileID: 7740865309431346272, guid: 7b3a029c2e6200345b05a69e18edfa06, type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 47057747}
+      objectReference: {fileID: 102329444}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b3a029c2e6200345b05a69e18edfa06, type: 3}
+--- !u!4 &1937191981 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2485044917291972351, guid: 7b3a029c2e6200345b05a69e18edfa06, type: 3}
+  m_PrefabInstance: {fileID: 1937191980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5748385948619027724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -782,7 +782,8 @@ PrefabInstance:
       value: Hand Menu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6803960170395612277, guid: cdd84b9dcbeb01a46a42404c88e3b252, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdd84b9dcbeb01a46a42404c88e3b252, type: 3}
