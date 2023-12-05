@@ -29,20 +29,21 @@ public class Hooking : MonoBehaviour
         } else if (other.CompareTag("Ceiling")) {
             //Vertical offset is greater on roof
             rigid.velocity = Vector3.zero;
-            player.GrappleHit(index, 1.5f);
+            player.GrappleHit(index, 1.6f);
         } else if (other.CompareTag("Grabbable")) {
             //Pull towards player
             rigid.velocity = Vector3.zero;
             player.GrapplePull(index, other.gameObject);
-        } else if (other.CompareTag("Door")) {
-            //Bounce off of door
+        } else if (other.CompareTag("Ground")) {
+            //Additional vertical offset on floor
+            rigid.velocity = Vector3.zero;
+            player.GrappleHit(index, -0.2f);
+        } else {
+            //Ungrabbable
             if (!returning) {
                 rigid.velocity = -rigid.velocity;
                 returning = true;
             }
-        } else {
-            //Ungrabbable
-            player.ClearHook(index);
         }
     }
 }

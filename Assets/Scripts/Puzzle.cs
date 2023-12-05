@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Puzzle : MonoBehaviour
 {
@@ -47,10 +48,10 @@ public class Puzzle : MonoBehaviour
         if (puzzleType == 0 && !locked) {
             if (other.CompareTag(tagType)) {
                 completed = true;
-                if (TryGetComponent<Wire>(out Wire snap)) {
+                if (TryGetComponent(out XRGrabInteractable non)) {
                     Vector3 save = other.transform.position;
                     Destroy(other.gameObject);
-                    snap.Freeze(save);
+                    meter.GetComponent<Wire>().Freeze(save);
                 }
                 return;
             }
