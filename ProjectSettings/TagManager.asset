@@ -25,6 +25,9 @@ TagManager:
   - CheckpointManager
   - Streaming
   - CleanVent
+  - Red
+  - Green
+  - Blue
   layers:
   - Default
   - TransparentFX
