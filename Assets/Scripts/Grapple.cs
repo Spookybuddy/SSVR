@@ -73,7 +73,7 @@ public class Grapple : MonoBehaviour
         triggerSensitivity = Mathf.Clamp01(triggerSensitivity);
         tugSpd = pullSpd / 10;
 
-        respawn = transform.position;
+        respawn = player.transform.position;
     }
 
     private void Update()
