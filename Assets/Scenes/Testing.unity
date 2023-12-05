@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -699,6 +699,7 @@ MonoBehaviour:
   completed: 0
   locked: 0
   meter: {fileID: 1223198515}
+  marker: {fileID: 0}
   button: {fileID: 357350729}
   target: 4.9
   range: 0.2
@@ -1311,6 +1312,7 @@ MonoBehaviour:
   completed: 0
   locked: 0
   meter: {fileID: 1708687663}
+  marker: {fileID: 0}
   button: {fileID: 2141542432}
   target: 4.9
   range: 0.2
@@ -2068,6 +2070,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: fuels.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: vents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: wires.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: fuels.Array.data[0]
+      value: 
+      objectReference: {fileID: 1974942065}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: tasks.Array.data[0]
       value: 
       objectReference: {fileID: 2090047752}
@@ -2077,6 +2095,26 @@ PrefabInstance:
       objectReference: {fileID: 1243067040}
     - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: tasks.Array.data[2]
+      value: 
+      objectReference: {fileID: 1974942065}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: vents.Array.data[0]
+      value: 
+      objectReference: {fileID: 1243067040}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: wires.Array.data[0]
+      value: 
+      objectReference: {fileID: 2090047752}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: Tasks.Array.data[0].grouping.Array.data[0]
+      value: 
+      objectReference: {fileID: 2090047752}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: Tasks.Array.data[1].grouping.Array.data[0]
+      value: 
+      objectReference: {fileID: 1243067040}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: Tasks.Array.data[2].grouping.Array.data[0]
       value: 
       objectReference: {fileID: 1974942065}
     - target: {fileID: 1450554410275005618, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}

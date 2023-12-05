@@ -11,6 +11,7 @@ public class Puzzle : MonoBehaviour
 
     [Header("Refuel Puzzle Components")]
     public Transform meter;
+    public Transform marker;
     public Push button;
     public float target;
     public float range;
@@ -23,6 +24,10 @@ public class Puzzle : MonoBehaviour
         locked = false;
         completed = false;
         if (meter != null) scale = meter.localScale;
+        if (marker != null) {
+            marker.transform.localPosition = Vector3.back * (target / maximum);
+            marker.localScale = new Vector3(0.12f, 0.12f, 4 * range / maximum);
+        }
         maximum = Mathf.Max(maximum, 0.1f);
     }
 
