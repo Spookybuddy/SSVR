@@ -15,12 +15,6 @@ public class Hooking : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //Riccocheted grapple ignores colliders
-        if (returning && !other.CompareTag("Door")) {
-            player.ClearHook(index);
-            return;
-        }
-
         //Can only grab onto objects tagged so
         if (other.CompareTag("Grapple")) {
             //Generic grapple
@@ -38,12 +32,30 @@ public class Hooking : MonoBehaviour
             //Additional vertical offset on floor
             rigid.velocity = Vector3.zero;
             player.GrappleHit(index, -0.2f);
+        } else if (other.CompareTag("Start")) {
+            GameObject.FindWithTag("GameController").GetComponent<GameManager>().LoadScene();
+            player.ClearHook(index);
+        } else if (other.CompareTag("MainMenu")) {
+            GameObject.FindWithTag("GameController").GetComponent<GameManager>().OpenMenu(0);
+            player.ClearHook(index);
+        } else if (other.CompareTag("Credits")) {
+            GameObject.FindWithTag("GameController").GetComponent<GameManager>().OpenMenu(1);
+            player.ClearHook(index);
+        } else if (other.CompareTag("Fridge")) {
+            //Fridge animation
+            other.GetComponent<Fridge>().Play();
+            ReturnCheck();
         } else {
             //Ungrabbable
-            if (!returning) {
-                rigid.velocity = -rigid.velocity;
-                returning = true;
-            }
+            ReturnCheck();
+        }
+    }
+
+    private void ReturnCheck()
+    {
+        if (!returning) {
+            rigid.velocity = -rigid.velocity;
+            returning = true;
         }
     }
 }

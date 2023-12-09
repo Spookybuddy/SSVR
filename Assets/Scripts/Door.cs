@@ -17,8 +17,8 @@ public class Door : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
         begins = new Vector3[doorParts.Length];
         for (int i = 0; i < doorParts.Length; i++) {
-            begins[i] = doorParts[i].position;
-            ends[i] += doorParts[i].position;
+            begins[i] = doorParts[i].localPosition;
+            ends[i] += doorParts[i].localPosition;
         }
     }
 
@@ -27,7 +27,7 @@ public class Door : MonoBehaviour
     {
         if (called) {
             for (int i = 0; i < doorParts.Length; i++) {
-                doorParts[i].position = Vector3.MoveTowards(doorParts[i].position, state ? ends[i] : begins[i], Time.deltaTime * openSpd * 4);
+                doorParts[i].localPosition = Vector3.MoveTowards(doorParts[i].localPosition, state ? ends[i] : begins[i], Time.deltaTime * openSpd * 4);
             }
         }
     }
