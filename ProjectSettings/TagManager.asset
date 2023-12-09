@@ -28,6 +28,10 @@ TagManager:
   - Red
   - Green
   - Blue
+  - Fridge
+  - Start
+  - Credits
+  - MainMenu
   layers:
   - Default
   - TransparentFX

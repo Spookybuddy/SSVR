@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 7659534403176340990}
   m_Layer: 0
   m_Name: W1 Socket
-  m_TagString: Puzzle_Test
+  m_TagString: Blue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -342,10 +342,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleType: 0
-  tagType: Finish
+  tagType: Red
   completed: 0
   locked: 0
   meter: {fileID: 8267117998454480693}
+  marker: {fileID: 0}
   button: {fileID: 0}
   target: 0
   range: 0
@@ -760,10 +761,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleType: 0
-  tagType: Ground
+  tagType: Green
   completed: 0
   locked: 0
   meter: {fileID: 184067158283662020}
+  marker: {fileID: 0}
   button: {fileID: 0}
   target: 0
   range: 0
@@ -955,7 +957,7 @@ GameObject:
   - component: {fileID: 818682428939146667}
   m_Layer: 0
   m_Name: W3 Socket
-  m_TagString: Ground
+  m_TagString: Green
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1211,7 +1213,7 @@ GameObject:
   - component: {fileID: 7485612535053761718}
   m_Layer: 0
   m_Name: W2 Socket
-  m_TagString: Finish
+  m_TagString: Red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1322,10 +1324,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleType: 0
-  tagType: Puzzle_Test
+  tagType: Blue
   completed: 0
   locked: 0
   meter: {fileID: 7609322620928588309}
+  marker: {fileID: 0}
   button: {fileID: 0}
   target: 0
   range: 0

@@ -13,6 +13,7 @@ public class Grapple : MonoBehaviour
     public InputActionReference gripActionL;
     public MeshFilter[] meshes;
     public GameObject[] reticle;
+    public Material[] reticolors;
     public GameObject projectile;
     public GameObject player;
     public GameObject[] controllers;
@@ -94,6 +95,13 @@ public class Grapple : MonoBehaviour
             if (pull[i]) reticle[i].SetActive(false);
             if (!grips[i]) {
                 if (Physics.Raycast(HandPos[i], Hands[i].forward, out RaycastHit hit, grappleLength, 3, QueryTriggerInteraction.Ignore)) {
+                    if (hit.collider.CompareTag("Grapple") || hit.collider.CompareTag("Ground") || hit.collider.CompareTag("Ceiling") || hit.collider.CompareTag("Grabbable")) {
+                        //Good
+                        reticle[i].GetComponent<Renderer>().material = reticolors[0];
+                    } else {
+                        //Red
+                        reticle[i].GetComponent<Renderer>().material = reticolors[1];
+                    }
                     reticle[i].SetActive(true);
                     reticle[i].transform.position = hit.point;
                     reticle[i].transform.rotation = Quaternion.LookRotation(-hit.normal);
