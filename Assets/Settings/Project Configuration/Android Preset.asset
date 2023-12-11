@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Settings:
     AOMethod: 0
     Downsample: 0
-    AfterOpaque: 0
+    AfterOpaque: 1
     Source: 1
     NormalSamples: 1
     Intensity: 3
@@ -102,11 +102,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
-  m_Name: RenderObjects
+  m_Name: Overlay
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
-    passTag: RenderObjects
+    passTag: Overlay
     Event: 550
     filterSettings:
       RenderQueueType: 1
@@ -120,7 +120,7 @@ MonoBehaviour:
     overrideShaderPassIndex: 0
     overrideMode: 0
     overrideDepthState: 1
-    depthCompareFunction: 8
+    depthCompareFunction: 0
     enableWrite: 1
     stencilSettings:
       overrideStencilState: 0
