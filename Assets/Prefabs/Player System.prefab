@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5984813721621912013}
   - component: {fileID: 7921566140981005066}
   - component: {fileID: 8674575881033912381}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3455098034056100969}
   - component: {fileID: 2875742132583633991}
+  - component: {fileID: 1188417441644775215}
   - component: {fileID: 1064428366290836848}
   m_Layer: 0
   m_Name: TaskManager
@@ -126,6 +127,26 @@ MonoBehaviour:
   maxDistance: 0.75
   rotationPadding: 35
   rotation: 0
+  shown: 1
+--- !u!114 &1188417441644775215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648745872076366861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf9f9dca64d5604593d9b8a3f771a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 6975134934508829110}
+  checklist: {fileID: 1565904797157950864}
+  minDistance: 0.25
+  maxDistance: 0.75
+  rotationPadding: 35
+  rotation: 0
+  shown: 0
 --- !u!114 &1064428366290836848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +167,9 @@ MonoBehaviour:
   - {fileID: 6438655301486503432}
   - {fileID: 6540432151710814451}
   - {fileID: 3430464223962676040}
-  final: []
+  final:
+  - {fileID: 2875742132583633991}
+  - {fileID: 1188417441644775215}
 --- !u!1 &1166433917508347130
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +181,7 @@ GameObject:
   - component: {fileID: 3707213084918261757}
   - component: {fileID: 2994948815982340456}
   - component: {fileID: 3430464223962676040}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fuel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +382,7 @@ GameObject:
   - component: {fileID: 7697463558811493963}
   - component: {fileID: 3014611545480716651}
   - component: {fileID: 9013606445386758617}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,7 +459,7 @@ GameObject:
   - component: {fileID: 5976697947868541133}
   - component: {fileID: 2441452920612570899}
   - component: {fileID: 3252547930159220397}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Hand Menu Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -557,7 +580,7 @@ GameObject:
   - component: {fileID: 8651970780373662009}
   - component: {fileID: 6740947480309846282}
   - component: {fileID: 6540432151710814451}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Vents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +604,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 4.3, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 210, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6740947480309846282
 CanvasRenderer:
@@ -693,7 +716,7 @@ GameObject:
   - component: {fileID: 6586563521240218149}
   - component: {fileID: 8187957015447375147}
   - component: {fileID: 540343006850248002}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: To Do
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -827,7 +850,7 @@ GameObject:
   - component: {fileID: 1360596626414503541}
   - component: {fileID: 5236658210754113024}
   - component: {fileID: 5955872002464288136}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: To Do
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -963,7 +986,7 @@ GameObject:
   - component: {fileID: 4028737718020204614}
   - component: {fileID: 8190017765063205466}
   - component: {fileID: 3944983112184899188}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Hand Menu Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1152,7 +1175,7 @@ GameObject:
   - component: {fileID: 6746083477258262872}
   - component: {fileID: 9221990506724559921}
   - component: {fileID: 6438655301486503432}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Wires
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1391,6 +1414,22 @@ PrefabInstance:
     - target: {fileID: 727875846855997637, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1273017728241610668, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_RendererIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1273017728241610668, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_Cameras.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1273017728241610668, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1273017728241610668, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_VolumeLayerMask.m_Bits
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1395599973741290203, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_Enabled
@@ -1638,6 +1677,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2736478854845186207, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_GravityApplicationMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871854915733156393, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_OcclusionCulling
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2871854915733156393, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
