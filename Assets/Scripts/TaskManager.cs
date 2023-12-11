@@ -15,14 +15,12 @@ public class TaskManager : MonoBehaviour
     [Header("Wires\nVents\nFuel")]
     public PuzzleGroups[] Tasks;
     public TextMeshProUGUI[] checklist;
-    public GameObject[] final;
-    private string[] checkText = new string[3];
+    public TaskList[] final; 
+    private string[] checkText = new string[] { "- Fix Wires -", "- Clean Vents -", "- Adjust Fuel -\n- Levels -" };
 
     void Start()
     {
-        final[0].SetActive(true);
-        final[1].SetActive(false);
-        for (int i = 0; i < 3; i++) checkText[i] = checklist[i].text;
+        for (int i = 0; i < 2; i++) final[i].shown = (i == 0);
     }
 
     private void FixedUpdate()
@@ -34,7 +32,7 @@ public class TaskManager : MonoBehaviour
                 for (int j = 0; j < Tasks[i].Puzzles.Length; j++) {
                     if (Tasks[i].Puzzles[j].completed) completedTasks[i]++;
                 }
-                checklist[i].text = checkText[i] + completedTasks[i].ToString() + "/" + (Tasks[i].Puzzles.Length).ToString();
+                checklist[i].text = checkText[i] + "\n" + completedTasks[i].ToString() + "/" + (Tasks[i].Puzzles.Length).ToString();
                 if (completedTasks[i] == Tasks[i].Puzzles.Length) {
                     checklist[i].fontStyle = FontStyles.Strikethrough;
                     finishedTasks[i] = true;
@@ -42,10 +40,10 @@ public class TaskManager : MonoBehaviour
             }
             completed = (finishedTasks[0] && finishedTasks[1] && finishedTasks[2]);
 
-            //You Win!
+            //You Win
             if (completed) {
-                final[0].SetActive(false);
-                final[1].SetActive(true);
+                final[0].shown = false;
+                final[1].shown = true;
             }
         }
     }

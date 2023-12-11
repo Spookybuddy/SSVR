@@ -10,7 +10,7 @@ public class TaskList : MonoBehaviour
 
     private float distance;
     public float rotation;
-
+    public bool shown;
     private bool handRange;
     private bool handRotate;
 
@@ -23,6 +23,6 @@ public class TaskList : MonoBehaviour
         handRotate = (rotation > 90 - rotationPadding && rotation < 90 + rotationPadding);
         handRange = (distance > minDistance && distance < maxDistance);
         
-        checklist.SetActive(handRange && handRotate);
+        checklist.SetActive(handRange && handRotate && shown);
     }
 }
