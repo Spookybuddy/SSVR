@@ -13706,6 +13706,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyShip_Floor (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.02
@@ -17872,6 +17876,10 @@ PrefabInstance:
     - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_Name
       value: EnemyShip_Floor (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -23565,6 +23573,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyShip_Floor (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.02
@@ -25386,6 +25398,10 @@ PrefabInstance:
     - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_Name
       value: EnemyShip_Floor (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -29071,7 +29087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &902838214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29987,6 +30003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyShip_Floor (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.035
@@ -30060,6 +30080,10 @@ PrefabInstance:
     - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_Name
       value: EnemyShip_Floor (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -31621,6 +31645,10 @@ PrefabInstance:
     - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_Name
       value: EnemyShip_Floor (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -40776,6 +40804,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyShip_Floor (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.01
@@ -41901,6 +41933,10 @@ PrefabInstance:
     - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_Name
       value: EnemyShip_Floor (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -52183,6 +52219,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyShip_Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.035
@@ -54399,6 +54439,10 @@ PrefabInstance:
     - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_Name
       value: EnemyShip_Floor (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -60316,6 +60360,10 @@ PrefabInstance:
     - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_Name
       value: EnemyShip_Floor (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 266178615481286888, guid: acbab5be6458905468ce481160d159a9, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646962154131495506, guid: acbab5be6458905468ce481160d159a9, type: 3}
       propertyPath: m_LocalScale.x
