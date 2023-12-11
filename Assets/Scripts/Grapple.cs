@@ -33,6 +33,9 @@ public class Grapple : MonoBehaviour
     private bool[] hooked;
     private bool[] held;
     private bool[] pull;
+    private bool[] canLatch;
+    private float[] limitedDistances;
+    private string[] grabTag;
     private bool usingGravity;
 
     //Privates
@@ -59,6 +62,9 @@ public class Grapple : MonoBehaviour
         pull = new bool[2];
         grips = new bool[2];
         hooked = new bool[2];
+        canLatch = new bool[2];
+        limitedDistances = new float[2];
+        grabTag = new string[2];
         dist = new Vector3[2];
         current = new GameObject[2];
         grabbed = new GameObject[2];
@@ -95,16 +101,22 @@ public class Grapple : MonoBehaviour
             if (pull[i]) reticle[i].SetActive(false);
             if (!grips[i]) {
                 if (Physics.Raycast(HandPos[i], Hands[i].forward, out RaycastHit hit, grappleLength, 3, QueryTriggerInteraction.Ignore)) {
+                    grabTag[i] = hit.collider.tag;
                     if (hit.collider.CompareTag("Grapple") || hit.collider.CompareTag("Ground") || hit.collider.CompareTag("Ceiling") || hit.collider.CompareTag("Grabbable")) {
-                        //Good
-                        reticle[i].GetComponent<Renderer>().material = reticolors[0];
+                        if (!canLatch[i]) {
+                            reticle[i].GetComponent<Renderer>().material = reticolors[0];
+                            canLatch[i] = true;
+                        }
                     } else {
-                        //Red
-                        reticle[i].GetComponent<Renderer>().material = reticolors[1];
+                        if (canLatch[i]) {
+                            reticle[i].GetComponent<Renderer>().material = reticolors[1];
+                            canLatch[i] = false;
+                        }
                     }
                     reticle[i].SetActive(true);
                     reticle[i].transform.position = hit.point;
                     reticle[i].transform.rotation = Quaternion.LookRotation(-hit.normal);
+                    limitedDistances[i] = hit.distance + 2;
                 } else {
                     reticle[i].SetActive(false);
                 }
@@ -115,20 +127,21 @@ public class Grapple : MonoBehaviour
         for (int i = 0; i < 2; i++) {
             if (current[i] != null) {
                 //Distance between player and hook
-                if (hooked[i]) dist[i] = (current[i].transform.position - (player.transform.position + new Vector3(0, 0.7f, 0))).normalized * slidiness;
+                if (hooked[i]) dist[i] = (current[i].transform.position - (player.transform.position + new Vector3(0, 0.667f, 0))).normalized * slidiness;
 
                 //Delete when let go and pulled objects rigid body retains velocity
                 if (!grips[i]) {
                     if (pull[i]) grabbed[i].GetComponent<Object>().Released(HandPos[i] - grabbed[i].transform.position);
 
                     //Cap the upward velocity retension
-                    if (dist[i].y > 0.7f) dist[i].y = 0.667f;
+                    if (dist[i].y > 0.7f) dist[i].y = 0.625f;
 
                     ClearHook(i);
                 }
 
-                //Rope max length
-                if (Vector3.Distance(current[i].transform.position, player.transform.position) > grappleLength) ClearHook(i);
+                //Rope max length, either from distance or from raycast limit
+                float distance = Vector3.Distance(current[i].transform.position, HandPos[i]);
+                if (distance > grappleLength || distance > limitedDistances[i]) ClearHook(i);
 
                 //Rope min length when returning
                 if (current[i].GetComponent<Hooking>().returning) {
@@ -221,15 +234,21 @@ public class Grapple : MonoBehaviour
     }
 
     //When a hook hits a grapplable object, set it as the target position and reset the other hook
-    public void GrappleHit(int index, float roof)
+    public void GrappleHit(int index)
     {
         for (int i = 0; i < 2; i++) {
             hooked[i] = (i == index);
             dist[i] = Vector3.zero;
         }
 
+        //Use the raycast to determine roof offset
+        Vector3 offset = Vector3.zero;
+        if (grabTag[index].Equals("Grapple")) offset = new Vector3(0, 1, 0);
+        if (grabTag[index].Equals("Ceiling")) offset = new Vector3(0, 1.6f, 0);
+        if (grabTag[index].Equals("Ground")) offset = new Vector3(0, -0.2f, 0);
+
         //Move the player to just before the wall, and adjust the line 
-        Vector3 ray = ((player.transform.position - current[index].transform.position).normalized * 0.25f) - new Vector3(0, roof, 0);
+        Vector3 ray = ((player.transform.position - current[index].transform.position).normalized * 0.25f) - offset;
         lastHit = reticle[index].transform.position + ray;
         current[index].transform.position = reticle[index].transform.position;
     }

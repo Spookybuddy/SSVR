@@ -1082,6 +1082,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animate: {fileID: 23363336}
   resetTime: 3
+--- !u!1 &33568690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9081209512290142005, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+  m_PrefabInstance: {fileID: 1326296387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &40223957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42844,6 +42849,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: final.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: final.Array.data[0]
+      value: 
+      objectReference: {fileID: 33568690}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: final.Array.data[1]
+      value: 
+      objectReference: {fileID: 1326296391}
+    - target: {fileID: 1064428366290836848, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: Tasks.Array.data[0].Puzzles.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -43212,6 +43229,11 @@ Transform:
 --- !u!4 &1326296390 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6975134934508829109, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+  m_PrefabInstance: {fileID: 1326296387}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1326296391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1565904797157950864, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
   m_PrefabInstance: {fileID: 1326296387}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1329804916
