@@ -33,8 +33,8 @@ RenderSettings:
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
-  m_DefaultReflectionResolution: 1024
-  m_ReflectionBounces: 1
+  m_DefaultReflectionResolution: 2048
+  m_ReflectionBounces: 2
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
@@ -271,7 +271,7 @@ PrefabInstance:
     - target: {fileID: 5640214122115518647, guid: ad73a1ed687be584db40b7135a5cb199, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3546c8301bd1df843aeb27b6e88f0d66, type: 2}
+      objectReference: {fileID: 8556262120643298411, guid: 21932b7cda1550d4a9c27d6a1e118005, type: 3}
     - target: {fileID: 5640214122115518647, guid: ad73a1ed687be584db40b7135a5cb199, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
