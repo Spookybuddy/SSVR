@@ -15,10 +15,13 @@ public class TaskManager : MonoBehaviour
     [Header("Wires\nVents\nFuel")]
     public PuzzleGroups[] Tasks;
     public TextMeshProUGUI[] checklist;
+    public GameObject[] final;
     private string[] checkText = new string[3];
 
     void Start()
     {
+        final[0].SetActive(true);
+        final[1].SetActive(false);
         for (int i = 0; i < 3; i++) checkText[i] = checklist[i].text;
     }
 
@@ -38,6 +41,12 @@ public class TaskManager : MonoBehaviour
                 } else checklist[i].fontStyle = FontStyles.Normal;
             }
             completed = (finishedTasks[0] && finishedTasks[1] && finishedTasks[2]);
+
+            //You Win!
+            if (completed) {
+                final[0].SetActive(false);
+                final[1].SetActive(true);
+            }
         }
     }
 }
