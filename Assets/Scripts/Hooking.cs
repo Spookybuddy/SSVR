@@ -37,7 +37,7 @@ public class Hooking : MonoBehaviour
                 player.ClearHook(index);
                 return;
             case "MainMenu":
-                Instantiate(soundClip[1], transform.position, Quaternion.identity);
+                Instantiate(soundClip[2], transform.position, Quaternion.identity);
                 GameObject.FindWithTag("GameController").GetComponent<GameManager>().OpenMenu(0);
                 player.ClearHook(index);
                 return;
@@ -47,7 +47,7 @@ public class Hooking : MonoBehaviour
                 player.ClearHook(index);
                 return;
             case "Fridge":
-                Instantiate(soundClip[2], transform.position, Quaternion.identity);
+                Instantiate(soundClip[3], transform.position, Quaternion.identity);
                 tag.GetComponent<Fridge>().Play();
                 break;
         }
@@ -65,7 +65,7 @@ public class Hooking : MonoBehaviour
     private void ReturnCheck()
     {
         if (!returning) {
-            Instantiate(soundClip[3], transform.position, Quaternion.identity);
+            Instantiate(soundClip[4], transform.position, Quaternion.identity);
             rigid.velocity = -rigid.velocity;
             returning = true;
         }

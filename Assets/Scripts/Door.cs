@@ -4,7 +4,9 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     private bool state;
-    private bool called;
+    private bool current;
+    private bool moving;
+    public AudioSource[] openCloseSFX;
     private Transform player;
     public GameObject wall;
     public float openSpd;
@@ -25,9 +27,11 @@ public class Door : MonoBehaviour
     //Move doors to state only when called
     void Update()
     {
-        if (called) {
+        if (moving) {
+            moving = false;
             for (int i = 0; i < doorParts.Length; i++) {
                 doorParts[i].localPosition = Vector3.MoveTowards(doorParts[i].localPosition, state ? ends[i] : begins[i], Time.deltaTime * openSpd * 4);
+                if (Vector3.Distance(doorParts[i].localPosition, state ? ends[i] : begins[i]) > 0.1f) moving = true;
             }
         }
     }
@@ -36,25 +40,18 @@ public class Door : MonoBehaviour
     void FixedUpdate()
     {
         state = (Vector3.Distance(transform.position, player.position) < 4);
-        if (!called) {
+        if (state != current) {
+            moving = true;
             StartCoroutine(DoorMove());
-            called = true;
+            current = state;
         }
-    }
-
-    //UI open function
-    public void DoorButton()
-    {
-        state = !state;
-        called = true;
-        StartCoroutine(DoorMove());
     }
 
     //Open door spd
     private IEnumerator DoorMove()
     {
+        openCloseSFX[state ? 1 : 0].Play();
         yield return new WaitForSeconds(openSpd);
-        called = false;
         wall.SetActive(!state);
     }
 }

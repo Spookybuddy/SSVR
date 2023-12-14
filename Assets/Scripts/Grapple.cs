@@ -18,6 +18,7 @@ public class Grapple : MonoBehaviour
     public GameObject player;
     public GameObject[] controllers;
     public AudioSource[] reelIn;
+    public AudioSource[] fireSFX;
 
     //Editor Values
     public float fireSpd;
@@ -325,6 +326,7 @@ public class Grapple : MonoBehaviour
         if (value > triggerSensitivity && !grips[hand] && !held[hand]) {
             grips[hand] = true;
             held[hand] = true;
+            fireSFX[hand].Play();
             GrapplingHook(hand);
         }
         if (value <= triggerSensitivity) {
