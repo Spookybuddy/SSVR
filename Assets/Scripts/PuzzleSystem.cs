@@ -4,6 +4,7 @@ public class PuzzleSystem : MonoBehaviour
 {
     public bool completed;
     public Puzzle[] subTasks;
+    public AudioSource jingle;
     private bool locked;
 
     private void FixedUpdate()
@@ -24,6 +25,7 @@ public class PuzzleSystem : MonoBehaviour
                     task.locked = true;
                 }
                 locked = true;
+                jingle.Play();
             }
         }
     }

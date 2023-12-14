@@ -8,6 +8,7 @@ public class Puzzle : MonoBehaviour
     public string tagType;
     public bool completed;
     public bool locked;
+    public AudioSource sound;
 
     [Header("Refuel Puzzle Components")]
     public Transform meter;
@@ -54,6 +55,7 @@ public class Puzzle : MonoBehaviour
             if (other.CompareTag(tagType)) {
                 completed = true;
                 if (TryGetComponent(out XRGrabInteractable non)) {
+                    sound.Play();
                     Vector3 save = other.transform.position;
                     Destroy(other.gameObject);
                     meter.GetComponent<Wire>().Freeze(save);
