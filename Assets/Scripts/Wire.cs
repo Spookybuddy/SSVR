@@ -176,12 +176,6 @@ public class Wire : MonoBehaviour
         Verts[7] = target.position - right + back;
     }
 
-    //Final resting place takes into account the difference in heights
-    private void Vertices(Vector3 start, Vector3 end)
-    {
-
-    }
-
     //Delayed update to puzzle manager
     private IEnumerator FrameDelay()
     {

@@ -17,6 +17,7 @@ public class Grapple : MonoBehaviour
     public GameObject projectile;
     public GameObject player;
     public GameObject[] controllers;
+    public AudioSource[] reelIn;
 
     //Editor Values
     public float fireSpd;
@@ -114,8 +115,7 @@ public class Grapple : MonoBehaviour
                         }
                     }
                     reticle[i].SetActive(true);
-                    reticle[i].transform.position = hit.point;
-                    reticle[i].transform.rotation = Quaternion.LookRotation(-hit.normal);
+                    reticle[i].transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(-hit.normal));
                     limitedDistances[i] = hit.distance + 2;
                 } else {
                     reticle[i].SetActive(false);
@@ -151,8 +151,7 @@ public class Grapple : MonoBehaviour
                 //Objects pulled towards player
                 if (pull[i]) {
                     current[i].transform.position = Vector3.MoveTowards(current[i].transform.position, HandPos[i], Time.deltaTime * fireSpd);
-                    grabbed[i].transform.position = current[i].transform.position;
-                    grabbed[i].transform.rotation = HandRot[i];
+                    grabbed[i].transform.SetPositionAndRotation(current[i].transform.position, HandRot[i]);
                 }
             } else {
                 //Velocity retained after hooked & released, using raycast collision detection from center & from ground
@@ -170,6 +169,7 @@ public class Grapple : MonoBehaviour
                 else player.transform.position += dist[i];
 
                 grabbed[i] = null;
+                reelIn[i].volume = 0;
             }
 
             //Rope is a line between the projectile and the hand position
@@ -195,6 +195,7 @@ public class Grapple : MonoBehaviour
             } else {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, lastHit, pullSpd * Time.deltaTime);
             }
+            reelIn[i].volume = 0.5f;
         }
 
         //Player falls out of bounds
