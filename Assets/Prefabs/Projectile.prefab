@@ -153,5 +153,6 @@ MonoBehaviour:
   soundClip:
   - {fileID: 9027455474213061818, guid: 2bcf298e8a2134147ad4443aeed3d902, type: 3}
   - {fileID: 4130702509190794567, guid: b1028b749b83d3b44b9912ff6d51832d, type: 3}
+  - {fileID: 437735162819954202, guid: d361a6793bd4ea24e95c3f0be5ce4355, type: 3}
   - {fileID: 628396557443687292, guid: 3d0fa39317c64a346bd43515ab26fcf9, type: 3}
   - {fileID: 2744690479823641085, guid: 15fffa3640251bc4c810089c11fe85e9, type: 3}
