@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.0025
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.000024000028, g: 0.00001290796, b: 0.00006413296, a: 0.0025}
+  m_IndirectSpecularColor: {r: 0.000021948446, g: 0.000011015097, b: 0.00006691408, a: 0.0025}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -43783,7 +43783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2347300054497264243, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2347300054497264243, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: m_audioClip
@@ -43824,6 +43824,10 @@ PrefabInstance:
     - target: {fileID: 2875742132583633991, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: rotationPadding
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5909788707749292982, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: grappleLength
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6250119361365189685, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: m_RenderPostProcessing
@@ -44048,6 +44052,10 @@ PrefabInstance:
     - target: {fileID: 8582680934888546537, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640774294376077317, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: followSpd
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -63122,7 +63130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5360882552958128510, guid: 744659ec0fc710540a1c1e730950ba4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5360882552958128510, guid: 744659ec0fc710540a1c1e730950ba4b, type: 3}
       propertyPath: m_TagString
@@ -67955,7 +67963,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.759434, g: 0.8590245, b: 1, a: 1}
-  m_Intensity: 0.75
+  m_Intensity: 5
   m_Range: 2
   m_SpotAngle: 145
   m_InnerSpotAngle: 55
@@ -68604,6 +68612,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Console
       objectReference: {fileID: 0}
+    - target: {fileID: 3174287065578003829, guid: 69b17c3fecf2077418b2739a3db91a3b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c9f89b83bad3249488a3f0a01085f13f, type: 2}
+    - target: {fileID: 3250887689426542747, guid: 69b17c3fecf2077418b2739a3db91a3b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 415c38fb143c6724ea53b9e97c9f782c, type: 2}
     - target: {fileID: 3802432217279143242, guid: 69b17c3fecf2077418b2739a3db91a3b, type: 3}
       propertyPath: padding
       value: 0.13
@@ -68628,6 +68644,10 @@ PrefabInstance:
       propertyPath: hands.Array.data[1]
       value: 
       objectReference: {fileID: 1326296388}
+    - target: {fileID: 4502238160643087052, guid: 69b17c3fecf2077418b2739a3db91a3b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 99e36f89c09eee24b978ea9a1a38be34, type: 2}
     - target: {fileID: 4807131800064011309, guid: 69b17c3fecf2077418b2739a3db91a3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.97

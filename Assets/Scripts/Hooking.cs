@@ -19,6 +19,10 @@ public class Hooking : MonoBehaviour
     //Enters a collider
     void OnTriggerEnter(Collider tag)
     {
+        //Do not hook if ricochet
+        if (returning) return;
+
+        //Check tags to perform specific actions
         switch (tag.tag) {
             case "Grapple":
             case "Ceiling":
@@ -50,7 +54,11 @@ public class Hooking : MonoBehaviour
                 Instantiate(soundClip[3], transform.position, Quaternion.identity);
                 tag.GetComponent<Fridge>().Play();
                 break;
+            case "Mute":
+                ReturnCheck();
+                return;
         }
+        if (!returning) Instantiate(soundClip[4], transform.position, Quaternion.identity);
         ReturnCheck();
     }
 
@@ -65,7 +73,6 @@ public class Hooking : MonoBehaviour
     private void ReturnCheck()
     {
         if (!returning) {
-            Instantiate(soundClip[4], transform.position, Quaternion.identity);
             rigid.velocity = -rigid.velocity;
             returning = true;
         }

@@ -32,6 +32,7 @@ TagManager:
   - Start
   - Credits
   - MainMenu
+  - Mute
   layers:
   - Default
   - TransparentFX

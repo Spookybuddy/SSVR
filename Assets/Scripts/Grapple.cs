@@ -146,7 +146,7 @@ public class Grapple : MonoBehaviour
 
                 //Rope min length when returning
                 if (current[i].GetComponent<Hooking>().returning) {
-                    if (Vector3.Distance(current[i].transform.position, HandPos[i]) < 0.75f) ClearHook(i);
+                    if (Vector3.Distance(current[i].transform.position, HandPos[i]) < 1.5f) ClearHook(i);
                 }
 
                 //Objects pulled towards player

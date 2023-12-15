@@ -1582,6 +1582,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: a15e0b5b501a9da4f9a53888a1f92cfc, type: 3}
+    - target: {fileID: 5909788707749292982, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: grappleLength
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6250119361365189685, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1
@@ -1833,6 +1837,10 @@ PrefabInstance:
     - target: {fileID: 8582680934888546537, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640774294376077317, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
+      propertyPath: followSpd
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9081209512290142005, guid: 24c7c7234a7d12641b71d514c5338a03, type: 3}
       propertyPath: m_IsActive
@@ -3521,7 +3529,7 @@ GameObject:
   - component: {fileID: 1563253574}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Door
+  m_TagString: Mute
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3556,7 +3564,7 @@ Transform:
   m_GameObject: {fileID: 1563253573}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 7, z: 2}
+  m_LocalPosition: {x: -2, y: 7, z: 2.2}
   m_LocalScale: {x: 4, y: 15, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
